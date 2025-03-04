@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID Form & Payment System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #EBF5FF 0%, #FFFFFF 100%);
+        }
+
+        /* Navigation and Sidebar */
+        nav {
+            
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hamburger {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 10px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: black;
+            transition: 0.3s;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: -300px;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            background-color: #2c3e50;
+            padding-top: 60px;
+            transition: 0.3s;
+            z-index: 99;
+            color: white;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-section {
+            padding: 1rem;
+            border-bottom: 1px solid #34495e;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #ecf0f1;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            color: #bdc3c7;
+            padding: 0.8rem;
+            text-decoration: none;
+            transition: 0.3s;
+            border-radius: 4px;
+        }
+
+        .sidebar-menu a:hover {
+            background-color: #34495e;
+            color: white;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Form Styling */
+        .input-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* ID Card Container */
+        .idContainer {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .details {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-radius: 4px;
+            min-height: 200px;
+        }
+
+        .picture {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            border-radius: 4px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #ddd;
+        }
+
+        .view-id-btn {
+            position: absolute;
+            bottom: -20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .view-id-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .payment-amount {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #e74c3c;
+        }
+
+        .payment-status {
+            padding: 0.5rem;
+         
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #666;
+        }
+
+        .id-card {
+            border: 1px solid #ddd;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+
+        .id-card-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #2c3e50;
+        }
+
+        .id-card-photo {
+            width: 120px;
+            height: 120px;
+            background-color: #ddd;
+            margin: 1rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ccc;
+        }
+
+        .id-info {
+            margin-top: 1rem;
+        }
+
+        .id-info p {
+            margin: 0.5rem 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .id-info span:first-child {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+
+            .idContainer {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                width: 100%;
+                left: -100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="hamburger" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-title" style="color: black;">ID System</div>
+    </nav>
+
+    <div class="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-title">Payment Center</div>
+            <div class="payment-amount">Outstanding: $50.00</div>
+            <div class="payment-status">Status: Pending Payment</div>
+            <ul class="sidebar-menu">
+                <li><a href="#">Pay Ticket</a></li>
+                <li><a href="#">Payment History</a></li>
+                <li><a href="#">View Violations</a></li>
+            </ul>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-title">Quick Links</div>
+            <ul class="sidebar-menu">
+                <li><a href="main.html">Home</a></li>
+                <li><a href="#" style="background-color: #ecf0f1; color:black;">Update Information</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="login.html">Log Out</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <main>
+        <div class="content">
+            <div class="input-group">
+                <div class="input-wrapper">
+                    <label for="name">Name</label>
+                    <input type="text" id="name">
+                </div>
+                <div class="input-wrapper">
+                    <label for="age">Age</label>
+                    <input type="text" id="age">
+                </div>
+                <div class="input-wrapper">
+                    <label for="gender">Gender</label>
+                    <select id="gender">
+                        <option value="" hidden>Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div class="input-wrapper">
+                    <label for="idNum">ID Number</label>
+                    <input type="text" id="idNum">
+                </div>
+                <div class="input-wrapper">
+                    <label for="birthday">Birthday</label>
+                    <input type="date" id="birthday">
+                </div>
+            </div>
+            <div class="idContainer">
+                <div class="details">
+                    <!-- ID Details will be populated here -->
+                </div>
+                <div class="picture">
+                    Click or drag to upload photo
+                </div>
+                <button class="view-id-btn">View ID</button>
+            </div>
+        </div>
+    </main>
+    <div class="modal" id="idModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div class="id-card">
+                <div class="id-card-header">
+                    <h2>Identification Card</h2>
+                    <div class="id-number"></div>
+                </div>
+                <div class="id-card-photo">
+                    No Photo
+                </div>
+                <div class="id-info">
+                    <p><span>Name:</span> <span class="id-name"></span></p>
+                    <p><span>Age:</span> <span class="id-age"></span></p>
+                    <p><span>Gender:</span> <span class="id-gender"></span></p>
+                    <p><span>Birthday:</span> <span class="id-birthday"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+            const spans = document.querySelectorAll('.hamburger span');
+            spans[0].style.transform = spans[0].style.transform === 'rotate(45deg) translate(5px, 5px)' ? '' : 'rotate(45deg) translate(5px, 5px)';
+            spans[1].style.opacity = spans[1].style.opacity === '0' ? '1' : '0';
+            spans[2].style.transform = spans[2].style.transform === 'rotate(-45deg) translate(7px, -6px)' ? '' : 'rotate(-45deg) translate(7px, -6px)';
+        }
+
+        function validateForm() {
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const gender = document.getElementById('gender').value;
+            const idNum = document.getElementById('idNum').value;
+            const birthday = document.getElementById('birthday').value;
+
+            // Clear previous error messages
+            document.querySelectorAll('.error-message').forEach(msg => msg.style.display = 'none');
+
+            let isValid = true;
+
+            if (!name) {
+                isValid = false;
+                showError('name', 'Name is required');
+            }
+            if (!age || isNaN(age)) {
+                isValid = false;
+                showError('age', 'Valid age is required');
+            }
+            if (!gender) {
+                isValid = false;
+                showError('gender', 'Gender is required');
+            }
+            if (!idNum) {
+                isValid = false;
+                showError('idNum', 'ID number is required');
+            }
+            if (!birthday) {
+                isValid = false;
+                showError('birthday', 'Birthday is required');
+            }
+
+            return isValid;
+        }
+
+        function showError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            let errorDiv = field.parentElement.querySelector('.error-message');
+            
+            if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                field.parentElement.appendChild(errorDiv);
+            }
+            
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        function viewID() {
+            if (validateForm()) {
+                // Get form values
+                const name = document.getElementById('name').value;
+                const age = document.getElementById('age').value;
+                const gender = document.getElementById('gender').value;
+                const idNum = document.getElementById('idNum').value;
+                const birthday = document.getElementById('birthday').value;
+
+                // Update modal content
+                document.querySelector('.id-name').textContent = name;
+                document.querySelector('.id-age').textContent = age;
+                document.querySelector('.id-gender').textContent = gender;
+                document.querySelector('.id-birthday').textContent = birthday;
+                document.querySelector('.id-number').textContent = `ID: ${idNum}`;
+
+                // Show modal
+                document.getElementById('idModal').classList.add('active');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('idModal').classList.remove('active');
+        }
+
+        // Add click event to View ID button
+        document.querySelector('.view-id-btn').onclick = viewID;
+
+        // Close modal when clicking outside
+        document.getElementById('idModal').onclick = function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        };
+    </script>
+</body>
+</html>

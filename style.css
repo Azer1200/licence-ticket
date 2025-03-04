@@ -1,0 +1,457 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #EBF5FF 0%, #FFFFFF 100%);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: #4B5563;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #2563EB;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+    position: relative;
+}
+
+.content-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.left-content {
+    flex: 1;
+}
+
+h1 {
+    font-size: 3.75rem;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+h1 span {
+    color: #2563EB;
+}
+
+.description {
+    font-size: 1.25rem;
+    color: #4B5563;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #2563EB;
+}
+
+.stat-label {
+    color: #4B5563;
+}
+
+.right-content {
+    flex: 1;
+    position: relative;
+}
+
+.image-container {
+    position: relative;
+    
+}
+
+.image-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* background: #2563EB; */
+    opacity: 0.1;
+    border-radius: 50%;
+    filter: blur(40px);
+}
+
+.main-image {
+    width: 100%;
+    border-radius: 0.5rem;
+    /* box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); */
+    position: relative;
+}
+
+.enter-button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 1rem 2rem;
+    background-color: #2563EB;
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.enter-button:hover {
+    background-color: #1D4ED8;
+}
+
+/* Floating elements */
+.floating-circle {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.circle-1 {
+    top: 3rem;
+    left: 10%;
+    width: 3rem;
+    height: 3rem;
+    background: #FCD34D;
+    opacity: 0.2;
+}
+
+
+
+.circle-2 {
+    bottom: 10rem;
+    left: 25%;
+    width: 2rem;
+    height: 2rem;
+    background: #60A5FA;
+    opacity: 0.2;
+}
+
+.circle-3 {
+    top: 50%;
+    right: 50%;
+    width: 4rem;
+    height: 4rem;
+    background: #A78BFA;
+    opacity: 0.2;
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .right-content {
+        margin-top: 2rem;
+    }
+}
+/* REGISTRATION STYLE */
+.contai {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #EBF5FF 0%, #FFFFFF 100%);
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    width: 24rem;
+    z-index: 99;
+    height: 30rem;
+    background-color: white;
+    position: relative;
+    animation: slideIn 0.5s forwards;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 10px 10px 10px rgb(199, 199, 199);
+}
+
+
+
+
+.leftbox {
+    display: flex;
+    flex-direction: column;
+    width: 24rem;
+    background: url('franck-YOyZVglvuQ8-unsplash.jpg') center/cover ;
+
+    height: 30rem;
+    
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    position: relative;
+    box-shadow: 0px 5px 10px rgb(199, 199, 199);
+    
+}
+
+.rightbox {
+    display: flex;
+    flex-direction: column;
+    width: 24rem;
+    background: url('kanhaiya-sharma-_HdRQWJ-Pt8-unsplash.jpg') center/cover ;
+   
+    height: 30rem;
+    
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position: relative;
+    box-shadow: 0px 5px 10px rgb(199, 199, 199);
+    
+}
+
+
+
+.box h1{
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.box label{
+    text-align: center;
+}
+.box p{
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.box p a{
+    margin-left: 3px;
+}
+.box #forgot{
+    text-align: center;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+.box .login{
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    width: 70%;
+    padding: 10px 0;
+    margin: 30px auto;
+    background-color: black;
+    color: White;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: background-color 100ms;
+}
+.box .login:hover{
+  
+    background-color: rgb(49, 49, 49);
+}
+.box input{
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    height: 13px;
+    padding: 1rem;
+}
+.box #email{
+    margin-bottom: 20px;
+}
+.box #or{
+    position: relative;
+    color: rgba(0, 0, 0, 0.30)
+}
+.box #or::before{
+    content: "";
+    position: absolute;
+    width: 130px;
+    background-color: rgba(0, 0, 0, 0.30);
+    height: 1px;
+    left: 10px;
+    top: 10px
+}
+.box #or::after{
+    content: "";
+    position: absolute;
+    width: 130px;
+    background-color: rgba(0, 0, 0, 0.30);
+    height: 1px;
+    right: 10px;
+    top: 10px
+}
+.other{
+    display: flex;
+    justify-content: center;
+
+}
+.other a{
+    color: black
+}
+.other i{
+    font-size: 2em;
+    margin-top: 0.4rem;
+    margin-right: 0.6rem;
+}
+
+/* registration */
+.regis {
+    display: flex;
+    flex-direction: column;
+    width: 24rem;
+    height: 30rem;
+    background-color: white;
+    z-index: 1;
+    animation: slideOut 0.5s forwards;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.regis h1{
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.regis label{
+    text-align: center;
+}
+.regis p{
+    text-align: center;
+    margin-top: 10px;
+}
+.regis p a{
+    margin-left: 3px;
+}
+
+
+.regis #forgot{
+    text-align: center;
+    margin-top: 10px;
+    text-decoration: none;
+}
+.regis .login{
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    width: 75%;
+    padding: 15px 0;
+    margin: 10px auto;
+    background-color: black;
+    color: White;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: background-color 100ms;
+}
+.regis .login:hover{
+  
+    background-color: rgb(49, 49, 49);
+}
+
+.regis input:not([type="checkbox"]){
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    height: 13px;
+    padding: 1rem;
+}
+.regis input[type="checkbox"]{
+    margin-right: 0.5rem;
+}
+.regis label[for="term"]{
+    margin-bottom: 1rem;
+}
+
+.regis #email{
+    margin-bottom: 10px;
+}
+
+.regis #password{
+    margin-bottom: 1rem;
+}
+.regis #passwords{
+    margin-bottom: 1.5rem;
+}
+
+/* ANIMATION */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0%);
+    }
+}
+@keyframes slideUp {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0%);
+    }
+}
+@keyframes slideDown {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-0%);
+    }
+}
